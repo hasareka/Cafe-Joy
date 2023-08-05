@@ -1,0 +1,51 @@
+.carousel {
+    position: relative;
+    height: 100vh;
+}
+  
+.carousel__button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 3em;
+    color: #fff;
+    opacity: 0.6;
+}
+  
+.carousel__button--left {
+    left: 10px;
+}
+  
+.carousel__button--right {
+    right: 10px;
+}
+  
+.home1, .home2, .home3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: opacity 1s;
+    opacity: 0;
+}
+  
+.home1 {
+    background-image: url('../../assets/images/bg1.jpg');
+}
+  
+.home2 {
+    background-image: url('../../assets/images/bg2.jpg');
+}
+  
+.home3 {
+    background-image: url('../../assets/images/bg3.jpg');
+}
+  
+.show {
+    opacity: 1;
+}
