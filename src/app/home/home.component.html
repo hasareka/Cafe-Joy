@@ -1,10 +1,7 @@
 <app-navbar></app-navbar>
 <div class="carousel">
-    
-    <div *ngFor="let background of backgrounds; let i=index" [ngClass]="background" [class.show]="i === currentBackgroundIndex">
-      <!-- Rest of your content here -->
-    </div>
+    <div [ngClass]="backgrounds[currentBackgroundIndex].class"></div>
+    <div class="carousel__text">{{backgrounds[currentBackgroundIndex].text}}</div>
     <button class="carousel__button carousel__button--left" (click)="changeBackground(-1)">&#10094;</button>
     <button class="carousel__button carousel__button--right" (click)="changeBackground(1)">&#10095;</button>
-  </div>
-  
+</div>
