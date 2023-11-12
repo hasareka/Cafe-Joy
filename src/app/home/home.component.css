@@ -29,14 +29,14 @@ body {
 
 .carousel__text {
     position: absolute;
-    bottom: 10%;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    font-size: 2em;
+    transform: translate(-50%, -50%);
+    text-align: center;
     color: #fff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-    z-index: 5;
+    z-index: 10;
 }
+
 
 .home1, .home2, .home3 {
     position: absolute;
@@ -67,7 +67,45 @@ body {
     animation: moveForward 6s ease-in-out forwards;
 }
 
+.title {
+    font-size: 4em; /* Adjust size as needed */
+    font-weight: bold; /* For bold text */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
 
+.subtitle {
+    margin-top: 0.5em; /* Space between title and subtitle */
+    font-size: 1.5em; /* Adjust size as needed */
+    font-style: italic; /* For italic text */
+}
+
+.decorative-element {
+    display: block;
+    margin: 0.5em auto; /* Center the element */
+    height: 4px; /* Height of the decorative line */
+    width: 80px; /* Width of the decorative line */
+    background: #fff; /* Color of the decorative line */
+    position: relative;
+}
+
+.decorative-element::after,
+.decorative-element::before {
+    content: '';
+    display: block;
+    width: 20px; /* Width of the leaves */
+    height: 20px; /* Height of the leaves */
+    background: url('path-to-your-leaf-icon.png') no-repeat center center; /* Path to your leaf icon */
+    position: absolute;
+    top: -8px; /* Positioning above the line */
+}
+
+.decorative-element::after {
+    right: -25px; /* Positioning to the right of the line */
+}
+
+.decorative-element::before {
+    left: -25px; /* Positioning to the left of the line */
+}
 
 @keyframes moveForward {
     0% { transform: scale(1); }

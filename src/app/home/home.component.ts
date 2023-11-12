@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
         this.backgrounds[this.currentBackgroundIndex].class = animationType === 'forward' ? 'home2' : 'home2';
         break;
       case 'home3':
-        this.backgrounds[this.currentBackgroundIndex].class = animationType === 'forward' ? 'home3' : 'home3';
+        this.backgrounds[this.currentBackgroundIndex].class = animationType === 'backword' ? 'home3' : 'home3';
         break;
     }
   }
