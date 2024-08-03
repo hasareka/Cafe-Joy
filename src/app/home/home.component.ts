@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,12 +16,19 @@ export class HomeComponent implements OnInit {
   currentBackgroundIndex = 0;
   previousBackgroundIndex = -1;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     setInterval(() => {
       this.changeBackground(1);
     }, 6000);
+
+    // Scroll to the fragment if available
+    this.route.fragment.subscribe(fragment => {
+      if (fragment) {
+        document.getElementById(fragment)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
   }
 
   changeBackground(direction: number) {
@@ -44,7 +52,7 @@ export class HomeComponent implements OnInit {
         this.backgrounds[this.currentBackgroundIndex].class = animationType === 'forward' ? 'home2' : 'home2';
         break;
       case 'home3':
-        this.backgrounds[this.currentBackgroundIndex].class = animationType === 'backword' ? 'home3' : 'home3';
+        this.backgrounds[this.currentBackgroundIndex].class = animationType === 'backward' ? 'home3' : 'home3';
         break;
     }
   }

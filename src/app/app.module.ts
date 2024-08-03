@@ -7,12 +7,22 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AboutComponent } from './about/about.component';
+import { ServiceComponent } from './service/service.component';
+import { MenuComponent } from './menu/menu.component';
+import { ReservationComponent } from './reservation/reservation.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    AboutComponent,
+    ServiceComponent,
+    MenuComponent,
+    ReservationComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
