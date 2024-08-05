@@ -1,17 +1,96 @@
-.about-container {
-    padding: 2em;
-    text-align: center;
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.about-us-banner {
+  background-image: url('E:\cafe-joy\src\assets\images\coffee banner.jpg'); /* Replace with your image path */
+  background-size: contain;
+  background-position: center;
+  color: white;
+  padding: 100px 0;
+  text-align: center;
+  position: relative;
+}
+
+.about-us-banner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Optional: Add a dark overlay for better text visibility */
+}
+
+.about-us-banner h2, .about-us-banner p {
+  position: relative;
+  z-index: 1;
+}
+
+.about-us-content {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #f4f4f4;
+}
+
+.about-us-content h3 {
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+.about-us-story {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.story, .vision {
+  width: 45%;
+  background-color: white;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.coffee-cup {
+  width: 100%;
+  text-align: center;
+}
+
+.coffee-cup img {
+  max-width: 100%;
+  height: auto;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #a0522d;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+  .about-us-story {
+    flex-direction: column;
+    align-items: center;
   }
   
-  .about-container h1 {
-    font-size: 2.5em;
-    margin-bottom: 0.5em;
+  .story, .vision {
+    width: 80%;
   }
-  
-  .about-container p {
-    font-size: 1.2em;
-    line-height: 1.6;
-    margin-bottom: 1em;
-    color: #555;
-  }
-  
+}
