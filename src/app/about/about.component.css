@@ -84,6 +84,11 @@ ul li {
   margin: 10px 0;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
+
 @media (max-width: 768px) {
   .about-us-story {
     flex-direction: column;
