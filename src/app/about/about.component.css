@@ -5,7 +5,7 @@ body {
 }
 
 .about-us-banner {
-  background-image: url('E:\cafe-joy\src\assets\images\coffee banner.jpg'); /* Replace with your image path */
+  background-image: url('E:\cafe-joy\src\assets\images\coffee banner.jpg'); 
   background-size: contain;
   background-position: center;
   color: white;
@@ -43,12 +43,11 @@ body {
 .about-us-story {
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  align-items: center;
 }
 
 .story, .vision {
-  width: 45%;
+  width: 30%;
   background-color: white;
   padding: 20px;
   margin: 20px 0;
@@ -56,7 +55,7 @@ body {
 }
 
 .coffee-cup {
-  width: 100%;
+  width: 35%;
   text-align: center;
 }
 
@@ -88,14 +87,13 @@ ul li {
   overflow: hidden;
 }
 
-
 @media (max-width: 768px) {
   .about-us-story {
     flex-direction: column;
     align-items: center;
   }
-  
-  .story, .vision {
+
+  .story, .vision, .coffee-cup {
     width: 80%;
   }
 }
