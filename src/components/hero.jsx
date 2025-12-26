@@ -61,16 +61,19 @@ export default function Hero() {
               </p>
 
             {/* Button container with responsive scaling */}
-            <div
-              className={`transition-all duration-1000 ease-out delay-400 ${
-                index === current ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-95"
-              }`}
-            >
-              <button className="group relative px-6 py-3 md:px-8 md:py-4 bg-amber-700 hover:bg-amber-600 text-white font-bold tracking-widest uppercase text-xs md:text-sm transition-all duration-300 rounded-sm overflow-hidden shadow-xl hover:shadow-amber-900/40 hover:-translate-y-1">
-                <span className="relative z-10">{slide.cta}</span>
-                <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-              </button>
-            </div>
+              <div
+                            className={`transition-all duration-1000 ease-out delay-400 ${
+                              index === current ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-95"
+                            }`}
+              >
+                            <a 
+                              href="#menu" 
+                              className="group relative inline-block px-6 py-3 md:px-8 md:py-4 bg-amber-700 hover:bg-amber-600 text-white font-bold tracking-widest uppercase text-xs md:text-sm transition-all duration-300 rounded-sm overflow-hidden shadow-xl hover:shadow-amber-900/40 hover:-translate-y-1"
+                            >
+                              <span className="relative z-10">{slide.cta}</span>
+                              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                            </a>
+                </div>
           </div>
         </div>
       ))}

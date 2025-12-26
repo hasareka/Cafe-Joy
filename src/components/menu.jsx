@@ -1,31 +1,39 @@
 // Example using your existing images or standard placeholder naming
-import espressoImg from '../assets/images/screen 1 coffee.jpg';
-import brewImg from '../assets/images/screen 2.jpg';
-import pastryImg from '../assets/images/screen 3 cafe.jpg';
+import espressoImg from '../assets/images/espresso.jpeg';
+import Caramel from '../assets/images/Caramel Macchiato.jpg';
+import VelvetLatte from '../assets/images/Velvet Latte.jpg';
+
+import FrenchPress from '../assets/images/French Press.jpg';
+import PourOver from '../assets/images/Pour Over (V60).jpg';
+import ColdBrew from '../assets/images/Cold Brew.jpg';
+
+import ButterCroissant from '../assets/images/Butter Croissant.jpg';
+import AlmondDanishes from '../assets/images/Almond Danishes.jpg';
+import DarkChocoMuffin from '../assets/images/Dark Choco Muffin.jpg';
 
 const menuData = [
   {
     category: "Specialty Coffee",
     items: [
       { name: "Espresso", price: "$3.50", desc: "Pure, intense, and aromatic.", image: espressoImg },
-      { name: "Caramel Macchiato", price: "$5.00", desc: "Espresso with milk and vanilla.", image: espressoImg },
-      { name: "Velvet Latte", price: "$4.50", desc: "Our signature smooth-textured latte.", image: espressoImg },
+      { name: "Caramel Macchiato", price: "$5.00", desc: "Espresso with milk and vanilla.", image: Caramel },
+      { name: "Velvet Latte", price: "$4.50", desc: "Our signature smooth-textured latte.", image: VelvetLatte },
     ]
   },
   {
     category: "Handcrafted Brews",
     items: [
-      { name: "French Press", price: "$6.00", desc: "Full-bodied coffee for two.", image: brewImg },
-      { name: "Pour Over (V60)", price: "$5.50", desc: "Clean and vibrant single-origin.", image: brewImg },
-      { name: "Cold Brew", price: "$5.00", desc: "Slow-steeped for 18 hours.", image: brewImg },
+      { name: "French Press", price: "$6.00", desc: "Full-bodied coffee for two.", image: FrenchPress },
+      { name: "Pour Over (V60)", price: "$5.50", desc: "Clean and vibrant single-origin.", image: PourOver },
+      { name: "Cold Brew", price: "$5.00", desc: "Slow-steeped for 18 hours.", image: ColdBrew },
     ]
   },
   {
     category: "Fresh Pastries",
     items: [
-      { name: "Butter Croissant", price: "$4.00", desc: "Flaky, buttery, and baked fresh.", image: pastryImg },
-      { name: "Almond Danishes", price: "$4.50", desc: "Sweet almond filling with flakes.", image: pastryImg },
-      { name: "Dark Choco Muffin", price: "$3.75", desc: "Rich Belgian chocolate chunks.", image: pastryImg },
+      { name: "Butter Croissant", price: "$4.00", desc: "Flaky, buttery, and baked fresh.", image: ButterCroissant },
+      { name: "Almond Danishes", price: "$4.50", desc: "Sweet almond filling with flakes.", image: AlmondDanishes },
+      { name: "Dark Choco Muffin", price: "$3.75", desc: "Rich Belgian chocolate chunks.", image: DarkChocoMuffin },
     ]
   }
 ];

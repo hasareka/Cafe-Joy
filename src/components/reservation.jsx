@@ -1,22 +1,38 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function Reservation() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    date: '',
-    guests: '2',
-    time: '10:00'
+    full_name: '',
+    res_date: '',
+    res_time: '10:00 AM', // Default to first option
+    guests: '2'
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Thank you, ${formData.name}! Your table for ${formData.guests} is requested.`);
+    try {
+      // Sending data to our Node.js server
+      const response = await axios.post('http://localhost:5000/api/reservations', formData);
+      
+      // If successful
+      alert(`Success! ${response.data.message}`);
+      
+      // Optional: Reset form
+      setFormData({
+        full_name: '',
+        res_date: '',
+        res_time: '10:00 AM',
+        guests: '2'
+      });
+    } catch (error) {
+      console.error("There was an error!", error);
+      alert("Failed to save reservation. Make sure your Node.js server is running on port 5000.");
+    }
   };
 
   return (
     <section id="reservation" className="py-24 bg-stone-900 text-white relative overflow-hidden">
-      {/* Subtle Background Pattern */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
       </div>
@@ -24,7 +40,6 @@ export default function Reservation() {
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           
-          {/* LEFT SIDE: INFO & HOURS */}
           <div className="space-y-8">
             <div className="space-y-4">
               <span className="text-amber-600 font-bold tracking-[0.3em] uppercase text-xs">Book a Table</span>
@@ -48,7 +63,6 @@ export default function Reservation() {
             </div>
           </div>
 
-          {/* RIGHT SIDE: RESERVATION FORM */}
           <div className="bg-white p-8 md:p-12 rounded-sm shadow-2xl text-stone-900">
             <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="sm:col-span-2 space-y-2">
@@ -56,9 +70,10 @@ export default function Reservation() {
                 <input 
                   type="text" 
                   required
+                  value={formData.full_name}
                   placeholder="John Doe"
                   className="w-full p-3 bg-stone-50 border border-stone-200 focus:border-amber-700 outline-none transition-all"
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  onChange={(e) => setFormData({...formData, full_name: e.target.value})}
                 />
               </div>
 
@@ -67,8 +82,9 @@ export default function Reservation() {
                 <input 
                   type="date" 
                   required
+                  value={formData.res_date}
                   className="w-full p-3 bg-stone-50 border border-stone-200 focus:border-amber-700 outline-none transition-all"
-                  onChange={(e) => setFormData({...formData, date: e.target.value})}
+                  onChange={(e) => setFormData({...formData, res_date: e.target.value})}
                 />
               </div>
 
@@ -76,7 +92,8 @@ export default function Reservation() {
                 <label className="text-xs font-bold uppercase tracking-widest text-stone-500">Time</label>
                 <select 
                   className="w-full p-3 bg-stone-50 border border-stone-200 focus:border-amber-700 outline-none transition-all"
-                  onChange={(e) => setFormData({...formData, time: e.target.value})}
+                  value={formData.res_time}
+                  onChange={(e) => setFormData({...formData, res_time: e.target.value})}
                 >
                   <option>10:00 AM</option>
                   <option>12:00 PM</option>
@@ -92,13 +109,13 @@ export default function Reservation() {
                   type="number" 
                   min="1" 
                   max="10" 
-                  defaultValue="2"
+                  value={formData.guests}
                   className="w-full p-3 bg-stone-50 border border-stone-200 focus:border-amber-700 outline-none transition-all"
                   onChange={(e) => setFormData({...formData, guests: e.target.value})}
                 />
               </div>
 
-              <button className="sm:col-span-2 mt-4 bg-amber-700 hover:bg-amber-800 text-white font-bold py-4 uppercase tracking-[0.2em] text-sm transition-all shadow-lg hover:-translate-y-1">
+              <button type="submit" className="sm:col-span-2 mt-4 bg-amber-700 hover:bg-amber-800 text-white font-bold py-4 uppercase tracking-[0.2em] text-sm transition-all shadow-lg hover:-translate-y-1">
                 Confirm Reservation
               </button>
             </form>
