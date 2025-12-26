@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const app = express();
@@ -29,34 +30,72 @@ db.getConnection((err, connection) => {
   }
 });
 
+// 3. Configure Nodemailer Transporter
+// NOTE: Ensure EMAIL_USER and EMAIL_PASS are in your .env file
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS // Use a Google App Password here
+  }
+});
+
 // --- API ROUTES ---
 
-// A. POST: Create a new reservation with Validation
+// A. POST: Create a new reservation & Send Email
 app.post('/api/reservations', (req, res) => {
-  const { full_name, phone, res_date, res_time, guests } = req.body;
+  const { full_name, phone, email, res_date, res_time, guests } = req.body;
 
-  // --- PHONE VALIDATION LOGIC ---
-  // Regex: Optional '+', followed by 7 to 15 digits
+  // Validation
   const phoneRegex = /^\+?[0-9]{7,15}$/;
-
   if (!full_name || full_name.trim().length < 2) {
     return res.status(400).json({ error: "Please enter a valid name." });
   }
-
   if (!phone || !phoneRegex.test(phone)) {
-    return res.status(400).json({ error: "Please enter a valid phone number (digits only)." });
+    return res.status(400).json({ error: "Please enter a valid phone number." });
   }
-  // ------------------------------
+  if (!email) {
+    return res.status(400).json({ error: "Email is required for confirmation." });
+  }
 
-  const sql = "INSERT INTO reservations (full_name, phone, res_date, res_time, guests) VALUES (?, ?, ?, ?, ?)";
+  // Insert into DB (Make sure your table has an 'email' and 'status' column)
+  const sql = "INSERT INTO reservations (full_name, phone, email, res_date, res_time, guests) VALUES (?, ?, ?, ?, ?, ?)";
   
-  db.query(sql, [full_name, phone, res_date, res_time, guests], (err, result) => {
+  db.query(sql, [full_name, phone, email, res_date, res_time, guests], (err, result) => {
     if (err) {
       console.error("❌ Insert Error:", err.message);
       return res.status(500).json({ error: "Database error" });
     }
-    console.log("✅ New Reservation saved! ID:", result.insertId);
-    res.status(201).json({ message: "Reservation confirmed!" });
+
+    // --- EMAIL LOGIC ---
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: 'Reservation Received - Cafe Joy',
+      html: `
+        <div style="font-family: Arial, sans-serif; border: 1px solid #ddd; padding: 20px; max-width: 600px;">
+          <h2 style="color: #b45309;">Reservation Confirmed!</h2>
+          <p>Hello <strong>${full_name}</strong>,</p>
+          <p>We've received your table request at Cafe Joy. Here are your details:</p>
+          <ul style="list-style: none; padding: 0;">
+            <li>📅 <strong>Date:</strong> ${res_date}</li>
+            <li>⏰ <strong>Time:</strong> ${res_time}</li>
+            <li>👥 <strong>Guests:</strong> ${guests}</li>
+          </ul>
+          <p>If we need to adjust anything, we will contact you at <strong>${phone}</strong>.</p>
+          <p>See you soon!</p>
+          <hr style="border: none; border-top: 1px solid #eee;" />
+          <p style="font-size: 12px; color: #777;">Cafe Joy | 123 Brew Street, NY</p>
+        </div>
+      `
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) console.log("❌ Email Error:", error);
+      else console.log("📧 Confirmation Email Sent: " + info.response);
+    });
+
+    res.status(201).json({ message: "Reservation confirmed and email sent!" });
   });
 });
 
@@ -72,7 +111,22 @@ app.get('/api/reservations', (req, res) => {
   });
 });
 
-// C. DELETE: Remove a reservation
+// C. PATCH: Update reservation status (Confirmed, Seated, No-Show)
+app.patch('/api/reservations/:id/status', (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  
+  const sql = "UPDATE reservations SET status = ? WHERE id = ?";
+  db.query(sql, [status, id], (err, result) => {
+    if (err) {
+      console.error("❌ Status Update Error:", err.message);
+      return res.status(500).json({ error: "Database error" });
+    }
+    res.status(200).json({ message: `Status updated to ${status}` });
+  });
+});
+
+// D. DELETE: Remove a reservation
 app.delete('/api/reservations/:id', (req, res) => {
   const { id } = req.params;
   const sql = "DELETE FROM reservations WHERE id = ?";

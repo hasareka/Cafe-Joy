@@ -9,9 +9,12 @@ export default function Reservation() {
     res_time: '10:00 AM', // Default to first option
     guests: '2'
   });
+  const today = new Date().toISOString().split('T')[0];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    //validation
     const phoneRegex = /^\+?[0-9]{7,15}$/;
     if (!phoneRegex.test(formData.phone)) {
         alert("Please enter a valid phone number (e.g., +1234567890 or 0712345678)");
@@ -97,16 +100,24 @@ export default function Reservation() {
                 />
                 </div>
 
+                {/* Email - NEW FIELD */}
+              <div className="sm:col-span-2 space-y-2">
+                <label className="text-xs font-bold uppercase tracking-widest text-stone-500">Email Address</label>
+                <input type="email" required value={formData.email} placeholder="for confirmation" className="w-full p-3 bg-stone-50 border border-stone-200 focus:border-amber-700 outline-none" onChange={(e) => setFormData({...formData, email: e.target.value})} />
+              </div>
+
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase tracking-widest text-stone-500">Date</label>
                 <input 
-                  type="date" 
-                  required
-                  value={formData.res_date}
-                  className="w-full p-3 bg-stone-50 border border-stone-200 focus:border-amber-700 outline-none transition-all"
-                  onChange={(e) => setFormData({...formData, res_date: e.target.value})}
+                    type="date" 
+                    required
+                    // Add the min attribute here
+                    min={today} 
+                    value={formData.res_date}
+                    className="w-full p-3 bg-stone-50 border border-stone-200 focus:border-amber-700 outline-none transition-all"
+                    onChange={(e) => setFormData({...formData, res_date: e.target.value})}
                 />
-              </div>
+                </div>
 
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase tracking-widest text-stone-500">Time</label>
@@ -138,6 +149,11 @@ export default function Reservation() {
               <button type="submit" className="sm:col-span-2 mt-4 bg-amber-700 hover:bg-amber-800 text-white font-bold py-4 uppercase tracking-[0.2em] text-sm transition-all shadow-lg hover:-translate-y-1">
                 Confirm Reservation
               </button>
+
+              <p className="sm:col-span-2 text-xs text-stone-400 text-center mt-2">
+                No payment required. We’ll confirm your reservation shortly.
+              </p>
+
             </form>
           </div>
 
