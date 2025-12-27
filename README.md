@@ -1,4 +1,4 @@
-Cafe Joy – Full Stack Coffee Shop Website
+<b>Cafe Joy – Full Stack Coffee Shop Website </b>
 
 A modern, responsive web application for a specialty coffee shop, featuring a custom reservation engine, automated email notifications, and a full-stack architecture.
 
