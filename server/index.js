@@ -46,16 +46,18 @@ const transporter = nodemailer.createTransport({
 app.post('/api/reservations', (req, res) => {
   const { full_name, phone, email, res_date, res_time, guests } = req.body;
 
-  // Validation
+  // Validation Regex
   const phoneRegex = /^\+?[0-9]{7,15}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   if (!full_name || full_name.trim().length < 2) {
     return res.status(400).json({ error: "Please enter a valid name." });
   }
   if (!phone || !phoneRegex.test(phone)) {
     return res.status(400).json({ error: "Please enter a valid phone number." });
   }
-  if (!email) {
-    return res.status(400).json({ error: "Email is required for confirmation." });
+  if (!email || !emailRegex.test(email)) {
+    return res.status(400).json({ error: "Please enter a valid email address." });
   }
 
   // Insert into DB (Make sure your table has an 'email' and 'status' column)
@@ -69,23 +71,30 @@ app.post('/api/reservations', (req, res) => {
 
     // --- EMAIL LOGIC ---
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: `Cafe Joy <${process.env.EMAIL_USER}>`, // Shows "Cafe Joy" as the sender name
       to: email,
+      bcc: process.env.EMAIL_USER, // Sends a copy to you automatically
+      replyTo: process.env.EMAIL_USER, 
       subject: 'Reservation Received - Cafe Joy',
       html: `
-        <div style="font-family: Arial, sans-serif; border: 1px solid #ddd; padding: 20px; max-width: 600px;">
-          <h2 style="color: #b45309;">Reservation Confirmed!</h2>
+        <div style="font-family: Arial, sans-serif; border: 1px solid #ddd; padding: 20px; max-width: 600px; color: #333;">
+          <h2 style="color: #b45309;">Reservation Received!</h2>
           <p>Hello <strong>${full_name}</strong>,</p>
           <p>We've received your table request at Cafe Joy. Here are your details:</p>
-          <ul style="list-style: none; padding: 0;">
-            <li>📅 <strong>Date:</strong> ${res_date}</li>
-            <li>⏰ <strong>Time:</strong> ${res_time}</li>
-            <li>👥 <strong>Guests:</strong> ${guests}</li>
-          </ul>
-          <p>If we need to adjust anything, we will contact you at <strong>${phone}</strong>.</p>
+          <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin-bottom: 10px;">📅 <strong>Date:</strong> ${res_date}</li>
+              <li style="margin-bottom: 10px;">⏰ <strong>Time:</strong> ${res_time}</li>
+              <li style="margin-bottom: 10px;">👥 <strong>Guests:</strong> ${guests}</li>
+            </ul>
+          </div>
+          <p>We will contact you soon at <strong>${phone}</strong> to confirm your reservation.</p>
           <p>See you soon!</p>
-          <hr style="border: none; border-top: 1px solid #eee;" />
-          <p style="font-size: 12px; color: #777;">Cafe Joy | 123 Brew Street, NY</p>
+          <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
+          <p style="font-size: 12px; color: #777; text-align: center;">
+            Cafe Joy | 123 Brew Street, NY <br>
+            <em>Bringing joy to your coffee breaks.</em>
+          </p>
         </div>
       `
     };

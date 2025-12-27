@@ -5,6 +5,7 @@ export default function Reservation() {
   const [formData, setFormData] = useState({
     full_name: '',
     phone: '',
+    email: '',
     res_date: '',
     res_time: '10:00 AM', // Default to first option
     guests: '2'
@@ -14,12 +15,20 @@ export default function Reservation() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //validation
+    //phone validation
     const phoneRegex = /^\+?[0-9]{7,15}$/;
     if (!phoneRegex.test(formData.phone)) {
         alert("Please enter a valid phone number (e.g., +1234567890 or 0712345678)");
         return;
     }
+
+    // 2. Email Validation (NEW)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
     try {
       // Sending data to our Node.js server
       const response = await axios.post('http://localhost:5000/api/reservations', formData);
@@ -30,13 +39,15 @@ export default function Reservation() {
       // Optional: Reset form
       setFormData({
         full_name: '',
+        phone: '',
+        email: '',
         res_date: '',
         res_time: '10:00 AM',
         guests: '2'
       });
     } catch (error) {
       console.error("There was an error!", error);
-      alert("Failed to save reservation. Make sure your Node.js server is running on port 5000.");
+      alert(error.response?.data?.error || "Failed to save reservation.");
     }
   };
 
@@ -100,10 +111,14 @@ export default function Reservation() {
                 />
                 </div>
 
-                {/* Email - NEW FIELD */}
-              <div className="sm:col-span-2 space-y-2">
+                {/* Email Field */}
+              <div className="sm:col-span-1 space-y-2">
                 <label className="text-xs font-bold uppercase tracking-widest text-stone-500">Email Address</label>
-                <input type="email" required value={formData.email} placeholder="for confirmation" className="w-full p-3 bg-stone-50 border border-stone-200 focus:border-amber-700 outline-none" onChange={(e) => setFormData({...formData, email: e.target.value})} />
+                <input 
+                  type="email" required value={formData.email} placeholder="john@example.com"
+                  className="w-full p-3 bg-stone-50 border border-stone-200 focus:border-amber-700 outline-none"
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                />
               </div>
 
               <div className="space-y-2">
