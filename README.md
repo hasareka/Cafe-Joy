@@ -1,30 +1,33 @@
-<b>Cafe Joy – Full Stack Coffee Shop Website </b>
+# ☕ Cafe Joy – Full Stack Coffee Shop Website
 
 A modern, responsive web application for a specialty coffee shop, featuring a custom reservation engine, automated email notifications, and a full-stack architecture.
 
-🚀 Features
-Dynamic Landing Page: High-performance UI built with React and Vite.
+---
 
-Reservation System: Real-time table booking with date, time, and guest validation.
+## 🚀 Features
 
-Automated Email Confirmations: Instant "Reservation Received" emails sent to customers via Nodemailer.
+* **Dynamic Landing Page:** High-performance UI built with **React** and **Vite**.
+* **Reservation System:** Real-time table booking with date, time, and guest validation.
+* **Automated Email Confirmations:** Instant "Reservation Received" emails sent to customers via **Nodemailer**.
+* **Management Dashboard:** A protected admin view to track, confirm, or delete reservations.
+* **Fully Responsive:** Optimized for mobile, tablet, and desktop using **Tailwind CSS**.
 
-Management Dashboard: A protected admin view to track, confirm, or delete reservations.
+---
 
-Fully Responsive: Optimized for mobile, tablet, and desktop using Tailwind CSS.
+## 🛠️ Tech Stack
 
-🛠️ Tech Stack
-Frontend: React.js, Vite, Tailwind CSS, Axios.
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend** | React.js, Vite, Tailwind CSS, Axios |
+| **Backend** | Node.js, Express.js |
+| **Database** | MySQL |
+| **Tools** | Nodemailer (SMTP), Dotenv (Environment Security) |
 
-Backend: Node.js, Express.js.
+---
 
-Database: MySQL.
+## 📂 Project Structure
 
-Tools: Nodemailer (SMTP), Dotenv (Environment Security).
-
-📂 Project Structure
-Plaintext
-
+```plaintext
 cafe-joy/
 ├── client/                # React Frontend (Vite)
 │   ├── src/components/    # UI Components (Menu, About, Reservation)
@@ -33,20 +36,21 @@ cafe-joy/
 │   ├── index.js           # Express Server & API Routes
 │   └── .env               # Database & Email Credentials (Hidden)
 └── database/
-    └── database.sql         # SQL script to setup MySQL tables
+    └── database.sql       # SQL script to setup MySQL tables
+
 ⚙️ Installation & Setup
-Clone the repository:
 
-Bash
+1. Clone the repository
 
-git clone https://github.com/hasareka/cafe-joy.git
-Setup the Database:
+git clone [https://github.com/hasareka/cafe-joy.git](https://github.com/hasareka/cafe-joy.git)
+cd cafe-joy
 
-Open MySQL Workbench.
+2. Setup the Database
 
-Run the following command to create the table:
+Open MySQL Workbench and run the following script:
 
-SQL
+CREATE DATABASE cafe_joy;
+USE cafe_joy;
 
 CREATE TABLE reservations (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -60,19 +64,30 @@ CREATE TABLE reservations (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-Configure Environment Variables: Create a .env file in the server folder:
+3. Configure Environment Variables
 
-Code snippet
+Create a .env file inside the /server directory:
 
 DB_HOST=localhost
 DB_USER=root
-DB_PASS=yourpassword
+DB_PASS=your_mysql_password
 DB_NAME=cafe_joy
-EMAIL_USER=your-email@gmail.com
-EMAIL_PASS=your-google-app-password
-Run the application:
+EMAIL_USER=your_gmail_address
+EMAIL_PASS=your_google_app_password
 
-Backend: cd server && npm start
+4. Run the Application
 
-Frontend: cd client && npm run dev
+Run Backend:
+
+cd server
+npm install
+npm start
+
+Run Frontend:
+
+cd client
+npm install
+npm run dev
+
+
 
