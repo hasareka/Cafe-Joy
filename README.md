@@ -1,16 +1,78 @@
-# React + Vite
+Cafe Joy – Full Stack Coffee Shop Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive web application for a specialty coffee shop, featuring a custom reservation engine, automated email notifications, and a full-stack architecture.
 
-Currently, two official plugins are available:
+🚀 Features
+Dynamic Landing Page: High-performance UI built with React and Vite.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Reservation System: Real-time table booking with date, time, and guest validation.
 
-## React Compiler
+Automated Email Confirmations: Instant "Reservation Received" emails sent to customers via Nodemailer.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Management Dashboard: A protected admin view to track, confirm, or delete reservations.
 
-## Expanding the ESLint configuration
+Fully Responsive: Optimized for mobile, tablet, and desktop using Tailwind CSS.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🛠️ Tech Stack
+Frontend: React.js, Vite, Tailwind CSS, Axios.
+
+Backend: Node.js, Express.js.
+
+Database: MySQL.
+
+Tools: Nodemailer (SMTP), Dotenv (Environment Security).
+
+📂 Project Structure
+Plaintext
+
+cafe-joy/
+├── client/                # React Frontend (Vite)
+│   ├── src/components/    # UI Components (Menu, About, Reservation)
+│   └── src/assets/        # High-resolution images
+├── server/                # Node.js Backend
+│   ├── index.js           # Express Server & API Routes
+│   └── .env               # Database & Email Credentials (Hidden)
+└── database/
+    └── database.sql         # SQL script to setup MySQL tables
+⚙️ Installation & Setup
+Clone the repository:
+
+Bash
+
+git clone https://github.com/hasareka/cafe-joy.git
+Setup the Database:
+
+Open MySQL Workbench.
+
+Run the following command to create the table:
+
+SQL
+
+CREATE TABLE reservations (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  full_name VARCHAR(255) NOT NULL,
+  phone VARCHAR(20) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  res_date DATE NOT NULL,
+  res_time VARCHAR(50) NOT NULL,
+  guests INT NOT NULL,
+  status VARCHAR(50) DEFAULT 'Pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+Configure Environment Variables: Create a .env file in the server folder:
+
+Code snippet
+
+DB_HOST=localhost
+DB_USER=root
+DB_PASS=yourpassword
+DB_NAME=cafe_joy
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-google-app-password
+Run the application:
+
+Backend: cd server && npm start
+
+Frontend: cd client && npm run dev
+
