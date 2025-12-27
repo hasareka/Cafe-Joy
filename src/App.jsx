@@ -7,6 +7,8 @@ import Reservation from './components/reservation';
 import Contact from './components/contact';
 import Footer from './components/footer';
 import AdminDashboard from './components/adminDashboard'; // Import your new component
+import Heritage from './components/Heritage';
+import FullMenu from './components/FullMenu';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
 
           {/* ADMIN DASHBOARD ROUTE */}
           <Route path="/admin-joy" element={<AdminDashboard />} />
+          <Route path="/heritage" element={<Heritage />} />
+          <Route path="/full-menu" element={<FullMenu />} />
         </Routes>
       </div>
     </Router>

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 // Example using your existing images or standard placeholder naming
 import espressoImg from '../assets/images/espresso.jpeg';
 import Caramel from '../assets/images/Caramel Macchiato.jpg';
@@ -10,6 +12,8 @@ import ColdBrew from '../assets/images/Cold Brew.jpg';
 import ButterCroissant from '../assets/images/Butter Croissant.jpg';
 import AlmondDanishes from '../assets/images/Almond Danishes.jpg';
 import DarkChocoMuffin from '../assets/images/Dark Choco Muffin.jpg';
+
+
 
 const menuData = [
   {
@@ -94,9 +98,12 @@ export default function Menu() {
           <p className="text-stone-400 text-xs uppercase tracking-widest mb-6">
             * Sourced ethically • Roasted daily • Joy in every sip
           </p>
-          <button className="px-10 py-4 bg-stone-900 text-white font-bold hover:bg-amber-700 transition-all duration-300 uppercase text-xs tracking-widest shadow-xl rounded-sm">
+          <Link 
+            to="/full-menu" 
+            className="px-10 py-4 bg-stone-900 text-white font-bold hover:bg-amber-700 transition-all duration-300 uppercase text-xs tracking-widest shadow-xl rounded-sm inline-block"
+          >
             Explore Full Signature Menu
-          </button>
+          </Link>
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import aboutImg from '../assets/images/coffee shop about.jpg';
 import detailImg1 from '../assets/images/screen 1 coffee.jpg';
 import detailImg2 from '../assets/images/screen 2.jpg';
+import { Link } from 'react-router-dom';
 
 function About() {
   return (
@@ -90,14 +91,13 @@ function About() {
             </div>
 
             {/* Button */}
-            <div className="pt-4">
-              <button className="group relative inline-flex items-center justify-center px-8 py-4 bg-stone-900 text-white font-semibold uppercase text-xs tracking-widest overflow-hidden">
-                <span className="relative z-10">
-                  Discover Our Heritage
-                </span>
-                <span className="absolute inset-0 bg-amber-700 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
-              </button>
-            </div>
+            <Link 
+              to="/heritage" 
+              className="group relative inline-flex items-center justify-center px-8 py-4 bg-stone-900 text-white font-semibold uppercase text-xs tracking-widest overflow-hidden"
+            >
+              <span className="relative z-10">Discover Our Heritage</span>
+              <span className="absolute inset-0 bg-amber-700 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
+            </Link>
           </div>
         </div>
       </div>
